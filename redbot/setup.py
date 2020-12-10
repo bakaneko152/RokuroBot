@@ -105,13 +105,14 @@ def get_data_dir(instance_name: str):
 
 
 def get_storage_type():
-    storage_dict = {1: "JSON", 2: "PostgreSQL"}
+    storage_dict = {1: "JSON", 2: "PostgreSQL", 3: "MySQL"}
     storage = None
     while storage is None:
         print()
         print("Please choose your storage backend (if you're unsure, just choose 1).")
         print("1. JSON (file storage, requires no database).")
         print("2. PostgreSQL (Requires a database server)")
+        print("3. MySQL (Requires a database server)")
         storage = input("> ")
         try:
             storage = int(storage)
@@ -167,7 +168,7 @@ def basic_setup():
 
     storage = get_storage_type()
 
-    storage_dict = {1: BackendType.JSON, 2: BackendType.POSTGRES}
+    storage_dict = {1: BackendType.JSON, 2: BackendType.POSTGRES, 3: BackendType.MYSQL}
     storage_type: BackendType = storage_dict.get(storage, BackendType.JSON)
     default_dirs["STORAGE_TYPE"] = storage_type.value
     driver_cls = drivers.get_driver_class(storage_type)
@@ -201,6 +202,8 @@ def get_target_backend(backend) -> BackendType:
         return BackendType.JSON
     elif backend == "postgres":
         return BackendType.POSTGRES
+    elif backend == "mysql":
+        return BackendType.MYSQL
 
 
 async def do_migration(

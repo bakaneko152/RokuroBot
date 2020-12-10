@@ -5,7 +5,7 @@ import os
 if os.getenv("RED_INSPECT_DRIVER_QUERIES"):
     LOGGING_INVISIBLE = logging.DEBUG
 else:
-    LOGGING_INVISIBLE = 0
+    LOGGING_INVISIBLE = 0#memo debug
 
 log = logging.getLogger("red.driver")
 log.invisible = functools.partial(log.log, LOGGING_INVISIBLE)

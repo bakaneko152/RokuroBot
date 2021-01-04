@@ -299,7 +299,7 @@ class MySQLDriver(BaseDriver):
                     return await cur.fetchall()
                 elif method=="set":
                     await conn.commit()
-                    return
+                    return 1
                 # return await method(query, *args)
     # async def _execute(
     #     self,
